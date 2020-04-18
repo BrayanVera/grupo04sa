@@ -29,46 +29,57 @@ public class Amigo {
         Mensaje myMensaje = null;
         myMensaje = new Mensaje(mensaje.getCorreo(), "Listar ", "\n" + obtenerDatos(contenido));
 
-        return myMensaje; /// modificando para el envio del mensaje a gmail
+        return myMensaje; 
     }
 
     private String obtenerDatos(String query) {
         ArrayList<DatosAmigo> lista = DatosAmigo.All(query);
 
-//        String leftAlignFormat = " | %-4d | %-15s | %-15s |%n";
-//
-//        System.out.format(" +-------+---------------------+----------+%n");
-//        System.out.format(" |   CI  |        NOMBRE      |  TELEFONO |%n");
-//        System.out.format(" +-------+---------------------+----------+%n");
-//        for (int i = 0; i < lista.size(); i++) {
-//            DAmigo modelo = lista.get(i);
-//            System.out.format(leftAlignFormat, modelo.getAmig_ci(), modelo.getAmig_nombre(), modelo.getAmig_telf());
-//        }
-//        return ("+----+--------+----------+%n");
-        String result = "<h1>LISTADO DE AMIGOS</h1>"
+        String result = "<html>"
+                + "<head>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "  font-family: arial, sans-serif;\n" +
+                "  border-collapse: collapse;\n" +
+                "  width: 100%;\n" +
+                "}\n" +
+                "\n" +
+                "td, th {\n" +
+                "  border: 1px solid #dddddd;\n" +
+                "  text-align: left;\n" +
+                "  padding: 8px;\n" +
+                "}\n" +
+                "\n" +
+                "tr:nth-child(even) {\n" +
+                "  background-color: #dddddd;\n" +
+                "}\n" +
+                "</style>\n" +
+                "</head>\n" +
+                "<h2>Lista de Amigos</h2>" +
+                "<body>"
                 + "<table>"
                 + "<tr>\n"
-                + "<th>CI</th>\n"
-                + "<th>NOMBRE</th>\n"
-                + "<th>APELLIDO</th>\n"
-                + "<th>TELEFONO</th>\n"
-                + "<th>CELULAR</th>\n"
-                + "<th>DIRECCION</th>\n"
-                + "<th>FEC NACIMIENTO</th>\n"
+                + "<th>Ci</th>\n"
+                + "<th>Nombre Completo</th>\n"             
+                + "<th>Telefono</th>\n"
+                + "<th>Ccelular</th>\n"
+                + "<th>Direccion</th>\n"
+                + "<th>Fech. Nac.</th>\n"
                 + "</tr>\n";
         for (int i = 0; i < lista.size(); i++) {
-            DatosAmigo modelo = lista.get(i);
+            DatosAmigo amigo = lista.get(i);
             result = result + "<tr>\n"
-                    + "<td>" + Integer.toString(modelo.getAmig_ci()) + "</td>\n"
-                    + "<td>" + modelo.getAmig_nombre() + "</td>\n"
-                    + "<td>" + modelo.getAmig_appm() + "</td>\n"
-                    + "<td>" + modelo.getAmig_telf() + "</td>\n"
-                    + "<td>" + modelo.getAmig_cel() + "</td>\n"
-                    + "<td>" + modelo.getAmig_dir() + "</td>\n"
-                    + "<td>" + modelo.getAmig_fnac() + "</td>\n"
+                    + "<td>" + Integer.toString(amigo.getAmig_ci()) + "</td>\n"
+                    + "<td>" + amigo.getAmig_nombre() + " "+amigo.getAmig_appm() +"</td>\n"
+                    + "<td>" + amigo.getAmig_telf() + "</td>\n"
+                    + "<td>" + amigo.getAmig_cel() + "</td>\n"
+                    + "<td>" + amigo.getAmig_dir() + "</td>\n"
+                    + "<td>" + amigo.getAmig_fnac() + "</td>\n"
                     + "</tr>\n";
         }
-        result = result + "</table>";
+        result = result + "</table>"
+                + "</body>"
+                +"</html>";
         return result;
     }
 

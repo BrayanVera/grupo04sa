@@ -80,30 +80,27 @@ public class ClientePop {
         return msj;
     }
 
-    private String getSubject(String entrada) {  /////seguimos parcheando el codigo
+    //Modificando
+    private String getSubject(String entrada) {  
         String aux = entrada.toUpperCase();
-        //  System.out.println("S : getSubject\n");
+        
 
-        int pos = aux.indexOf("SUBJECT: ") + 8;
+        int pos = aux.indexOf("SUBJECT: ") + 5;
         int fin = 0;
-        if (entrada.contains("@outlook.com") || entrada.contains("@hotmail.com")) {
+        if (entrada.contains("@outlook.com")) {
             fin = entrada.indexOf("Thread-Topic:", pos);
-        } else if (entrada.contains("@gmail.com")) {
-            fin = entrada.indexOf("To:", pos);
-        } else {
-            fin = entrada.indexOf("Content-Type:", pos);
-        }
-
+        } 
+        
         String cadenita = entrada.substring(pos, fin - 1).trim();
-        //cadenita.replaceAll("\n", " ");
-        //System.out.println(cadenita);
+        
         return cadenita;
     }
 
     private String getCorreoUser(String entrada) {
         String aux = entrada.toUpperCase();
         int pos = aux.indexOf("FROM: ") + 6;
-        int fin = entrada.indexOf("Date:", pos);   ///modifique esto por un salto de linea
+        //salto de linea
+        int fin = entrada.indexOf("Date:", pos);   
 
         //correos enviados desde un servidor de correo ej. Gmail
         int auxini = entrada.indexOf("<", pos);
